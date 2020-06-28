@@ -1,13 +1,13 @@
 import * as Subject from './qqengine/Subject/index.js';
 import {Point, Size} from './qqengine/primitives/index.js';
-import {Container} from './qqengine/Container.js';
 import {collision} from './collision.js';
 
 export class Foreground extends Subject.Group {
 	
 	constructor(options = {}) {
-		options.selfAdd = true;
-		options.isSortOnAdd = false;
+		options.isSortByZOnAdd = false;
+		options.isSortByZOnTick = true;
+		debugger;
 		super(options);
 	}
 	
@@ -24,17 +24,14 @@ export class Foreground extends Subject.Group {
 		}
 	}
 	
-	tickSortByZ() {
-		this._sortSubjectsByZ();
-	}
-	
 	sortByZ() {
-		this._sortSubjectsByZ();
+		// No sortByZ for children
+		this._sortByZ();
 	}
 	
-	_sortSubjectsByZ() {
-		const solids = [...this.getSubjects()];
-		this.getSubjects().sort((a, b) => {
+	_sortByZ() {
+		const solids = [...this.subjects()];
+		this.subjects().sort((a, b) => {
 			if ( a.getSolidPosition().y() === b.getSolidPosition().y() ) {
 				return solids.indexOf(a) - solids.indexOf(b);
 			}
@@ -43,7 +40,7 @@ export class Foreground extends Subject.Group {
 	}
 	
 	_getSolids() {
-		return this.getSubjects().filter(
+		return this.subjects().filter(
 			subj => subj.isSolid && subj.isSolid()
 		);
 	}

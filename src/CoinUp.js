@@ -20,7 +20,7 @@ export class CoinUp extends
 	}
 	
 	up() {
-		const thisPos = this.getPosition();
+		const thisPos = this.position();
 		this.setAction(
 			new Actions.MoveTo({
 				subj: this,
@@ -35,7 +35,7 @@ export class CoinUp extends
 		this.setAction(
 			new Actions.Disappear({
 				duration: 0.5,
-				onEnd: () => {this.deleteMe();}
+				onEnd: () => this.delete()
 			})
 		);
 	}

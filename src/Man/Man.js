@@ -18,7 +18,7 @@ export class Man extends
 			anchor: new Point(0.5, 1),
 			weight: options.weight,
 			type: CONST.SOLID.DYNAMIC,
-			getBasis: () => this.getPosition()
+			getBasis: () => this.position()
 		};
 		super(options);
 		this._alive = true;
@@ -32,6 +32,7 @@ export class Man extends
 	
 	tick(delta) {
 		super.tick(delta);
+		this.cleanHitTargets();
 		this._attackCharge += delta;
 		if ( this._attackCharge > 1 ) {
 			this._attackCharge = 0;
@@ -40,6 +41,12 @@ export class Man extends
 		if ( this._health <= 0 ) {
 			this.die();
 		}
+	}
+	
+	cleanHitTargets() {
+		this._hitTargets = this._hitTargets.filter( target =>
+			target.isAlive()
+		);
 	}
 	
 	addHitTarget(subj) {
@@ -57,14 +64,14 @@ export class Man extends
 		this._health -= 1;
 		Text.Bubble.make({
 			text: '-1',
-			position: this.getPosition(),
+			position: this.position(),
 			size: new Size(0.5, 0.5),
 			world: this.getWorld()
 		});
 	}
 	
 	goTo(offset) {
-		const target = this.getPosition().add(offset);
+		const target = this.position().add(offset);
 		this.setAction(new Actions.WalkTo(target));
 	}
 	
@@ -80,9 +87,9 @@ export class Man extends
 		this._alive = false;
 		
 		this.getWorld()._seizure._background.addSubject(new Bones({
-			position: this.getPosition()
+			position: this.position()
 		}));
-		this.deleteMe();
+		this.delete();
 	}
 	
 	/*

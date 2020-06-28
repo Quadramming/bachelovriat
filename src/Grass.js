@@ -43,7 +43,7 @@ export class Grass extends Subject.Sprite {
 		}
 		
 		this.setSpriteImage(memoryImage.cvs);
-		this.setSize(new Size(w, h));
+		this.size(new Size(w, h));
 	}
 	
 }

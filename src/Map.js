@@ -19,7 +19,7 @@ export class Map {
 	constructor() {
 		this._map = [
 			'wwwwwww',
-			'wpfmffww',
+			'wpemffww',
 			'wwwffffw',
 			'wwwwfrfww',
 			'wwwwegfmw',
@@ -69,7 +69,7 @@ export class Map {
 			position: new Point(x, y),
 			size: new Size(1, 1),
 			solid: {
-				getBasis: () => wall.getPosition(),
+				getBasis: () => wall.position(),
 				offset: new Point(0, -0.5),
 				size: new Size(1, 1),
 				anchor: new Point(0.5, 0)

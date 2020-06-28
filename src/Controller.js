@@ -21,7 +21,7 @@ export class Controller extends Subject.Subject {
 	onClickDown(worldPoint) {
 		this._fn(worldPoint);
 		return;
-		const local = this.worldToLocalPoint(worldPoint);
+		const local = this.worldToLocal(worldPoint);
 		
 		const direction = new Point();
 		
@@ -42,7 +42,7 @@ export class Controller extends Subject.Subject {
 	}
 	
 	onClickUp(worldPoint) {
-		const local = this.worldToLocalPoint(worldPoint);
+		const local = this.worldToLocal(worldPoint);
 		//c(local);
 	}
 	

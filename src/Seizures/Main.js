@@ -16,6 +16,7 @@ import {Controller} from '../Controller.js';
 import {Foreground} from '../Foreground.js';
 import {CoinUp} from '../CoinUp.js';
 import {Gold} from '../Gold.js';
+import {Bag} from '../Bag.js';
 
 class Main extends Seizure {
 	
@@ -25,25 +26,35 @@ class Main extends Seizure {
 		this.getWorld().background('black');
 		
 		this._background = new Subject.Group();
-		this._background.addSubject(new Grass({seizure: this}));
+		//this._background.addSubject(new Grass({seizure: this}));
 		this.addSubject(this._background);
-		this._foreground = new Foreground({seizure: this});
+		
+		this._foreground = new Foreground();
+		this.addSubject(this._foreground);
+		
 		let map = new Map();
 		this._player = map.fill(this._background, this._foreground);
 		this.cameraFollow(this._player);
 		this._setHud('GameHud');
 	}
 	
+	addToForeground(subj) {
+		this._foreground.addSubject(subj);
+	}
+	
 	tick(delta) {
 		super.tick(delta);
-		this._foreground.forChildren((subj) => {
+		this._foreground.forSubjects((subj) => {
 			if ( this._player.getSolidRect().isContains(subj.getSolidPosition()) ) {
+				if ( subj instanceof Bag ) {
+					this.getHud().showBag(subj);
+				}
 				if ( subj instanceof Gold ) {
-					subj.deleteMe();
+					subj.delete();
 					new CoinUp({
-						position: this._player.getPosition(),
+						position: this._player.position(),
 						selfAdd: true,
-						seizure: this
+						parent: this.getWorld().getStage()
 					});
 				}
 			}
