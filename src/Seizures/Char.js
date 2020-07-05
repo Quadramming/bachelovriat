@@ -11,6 +11,7 @@ import {Grass} from '../Grass.js';
 import {Man} from '../Man/Man.js';
 import {Slot} from '../Items/Slot.js';
 import {Hammer} from '../Items/Hammer.js';
+import {Gold} from '../Items/Gold.js';
 import {Controller} from '../Controller.js';
 
 class Char extends Seizure {
@@ -18,13 +19,22 @@ class Char extends Seizure {
 	constructor(options) {
 		super(options);
 		//onClick: () => QQ.APP.closePopUp(),
-		for ( let i = 0; i < 3; ++i ) {
+		for ( let i = 0; i < 4; ++i ) {
 			for ( let j = 0; j < 3; ++j ) {
 				const slot = new Slot({
-					seizure: this,
-					position: new Point(i*3, j*3)
+					parent: this.getWorld().getStage(),
+					position: new Point(i*2, j*2)
 				});
-				slot.put(new Hammer());
+				
+				if ( (i+j)%2 ) {
+					slot.put(new Hammer({
+						parent: slot,
+					}));
+				} else {
+					slot.put(new Gold({
+						parent: slot,
+					}));
+				}
 			}
 		}
 	}

@@ -35,7 +35,7 @@ class Main extends Seizure {
 		let map = new Map();
 		this._player = map.fill(this._background, this._foreground);
 		this.cameraFollow(this._player);
-		this._setHud('GameHud');
+		this.setHud('GameHud');
 	}
 	
 	addToForeground(subj) {

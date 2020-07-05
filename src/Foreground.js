@@ -7,7 +7,6 @@ export class Foreground extends Subject.Group {
 	constructor(options = {}) {
 		options.isSortByZOnAdd = false;
 		options.isSortByZOnTick = true;
-		debugger;
 		super(options);
 	}
 	

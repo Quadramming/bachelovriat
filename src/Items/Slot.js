@@ -13,8 +13,8 @@ export class Slot extends Subject.Sprite {
 	
 	put(subj) {
 		this._store = subj;
-		subj.setPosition(new Point(1, 1));
-		subj.setSize(new Size(2));
+		subj.position(new Point(1, 1));
+		subj.size(new Size(2));
 		this.addSubject(subj);
 	}
 	
