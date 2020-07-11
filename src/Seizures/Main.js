@@ -50,7 +50,7 @@ class Main extends Seizure {
 					this.getHud().showBag(subj);
 				}
 				if ( subj instanceof Gold ) {
-					subj.delete();
+					subj.destructor();
 					new CoinUp({
 						position: this._player.position(),
 						selfAdd: true,

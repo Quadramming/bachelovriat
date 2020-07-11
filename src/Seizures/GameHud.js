@@ -16,7 +16,7 @@ class GameHud extends Seizure {
 	constructor(options) {
 		super(options);
 		new Controller({
-			parent: this.getWorld().getStage(),
+			parent: this,
 			seizure: this,
 			fn: this.controller.bind(this)
 		});
@@ -29,11 +29,11 @@ class GameHud extends Seizure {
 	}
 	
 	showBag(subj) {
-		if ( this._bagButton === null ) {
+		if ( ! this._bagButton ) {
 			this._bagButton = new Subject.Sprite({
 				parent: this.getWorld().getStage(),
 				selfAdd: true,
-				onClick: () => QQ.APP.popUp('Char'),
+				onClick: () => QQ.APP.popUp('Char', {bag: subj, player: this._player}),
 				image: 'bagHud',
 				size: new Size(3),
 				position: new Point(0, 3)
@@ -52,7 +52,7 @@ class GameHud extends Seizure {
 	}
 	
 	hideBag() {
-		this._bagButton = this._bagButton.delete();
+		this._bagButton = this._bagButton.destructor();
 	}
 	
 }

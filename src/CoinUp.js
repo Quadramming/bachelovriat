@@ -35,7 +35,7 @@ export class CoinUp extends
 		this.setAction(
 			new Actions.Disappear({
 				duration: 0.5,
-				onEnd: () => this.delete()
+				onEnd: () => this.destructor()
 			})
 		);
 	}

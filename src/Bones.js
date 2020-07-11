@@ -60,7 +60,7 @@ export class Bones extends Subject.Actionable {
 		this.setAction(
 			new Actions.Disappear({
 				duration: 1,
-				onEnd: () => this.delete()
+				onEnd: () => this.destructor()
 			})
 		);
 	}

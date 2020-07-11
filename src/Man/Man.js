@@ -23,11 +23,18 @@ export class Man extends
 		super(options);
 		this._alive = true;
 		this._speed = QQ.useDefault(options.speed, 2);
-		this._inventory = null;
+		this._inventory = QQ.arrayOfNull(12);
 		
 		this._hitTargets = [];
 		this._attackCharge = 0;
 		this._health = 2;
+	}
+	
+	inventory(i, item) {
+		if ( item !== undefined ) {
+			this._inventory[i] = item;
+		}
+		return this._inventory[i];
 	}
 	
 	tick(delta) {
@@ -89,7 +96,7 @@ export class Man extends
 		this.getWorld()._seizure._background.addSubject(new Bones({
 			position: this.position()
 		}));
-		this.delete();
+		this.destructor();
 	}
 	
 	/*
